@@ -8,6 +8,7 @@ import android.bluetooth.le.BluetoothLeScanner
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.vaca.modifiId.R
 import com.vaca.modifiId.adapter.BleViewAdapter
 import com.vaca.modifiId.bean.BleBean
+import com.vaca.modifiId.ble.BleCmd
 import com.vaca.modifiId.ble.BleDataManager
 import com.vaca.modifiId.ble.BleDataWorker
 import com.vaca.modifiId.ble.BleScanManager
@@ -176,23 +178,24 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         bleWorker= BleDataWorker(object: BleDataManager.OnNotifyListener{
             override fun onNotify(device: BluetoothDevice?, data: Data?) {
                 data?.value?.run {
-                    if(this.size==6){
-                        var same=true
-                        for(k in 0 until 6){
-                            System.out.println("sdf  "+this[k].toUByte().toInt().toString())
-                            if(this[k]!=mySendByteArray!![k]){
-                                same=false
-                                break;
-                            }
-                        }
-                        if(same){
-                            hintToast.postValue("设置成功")
-                        }
-                    }else if(this.size==7){
-                        if(this[6].toUByte().toInt()==243){
-                            deviceInfo.postValue(this)
-                        }
-                    }
+                    Log.e("fuck",String(this))
+//                    if(this.size==6){
+//                        var same=true
+//                        for(k in 0 until 6){
+//                            System.out.println("sdf  "+this[k].toUByte().toInt().toString())
+//                            if(this[k]!=mySendByteArray!![k]){
+//                                same=false
+//                                break;
+//                            }
+//                        }
+//                        if(same){
+//                            hintToast.postValue("设置成功")
+//                        }
+//                    }else if(this.size==7){
+//                        if(this[6].toUByte().toInt()==243){
+//                            deviceInfo.postValue(this)
+//                        }
+//                    }
                 }
             }
 
@@ -207,26 +210,30 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         deviceInfo.observe(this,{
 
 
-            if(buttonSelect!!.value ==false){
-                binding.x1.setText(it[0].toUByte().toInt().toString())
-                binding.x2.setText(it[1].toUByte().toInt().toString())
-                binding.x3.setText(it[2].toUByte().toInt().toString())
-                binding.x4.setText(it[3].toUByte().toInt().toString())
+//            if(buttonSelect!!.value ==false){
+//                binding.x1.setText(it[0].toUByte().toInt().toString())
+//                binding.x2.setText(it[1].toUByte().toInt().toString())
+//                binding.x3.setText(it[2].toUByte().toInt().toString())
+//                binding.x4.setText(it[3].toUByte().toInt().toString())
+//
+//            }else{
+//                binding.x1.setText(String.format("%02X",it[0].toUByte().toInt()))
+//                binding.x2.setText(String.format("%02X",it[1].toUByte().toInt()))
+//                binding.x3.setText(String.format("%02X",it[2].toUByte().toInt()))
+//                binding.x4.setText(String.format("%02X",it[3].toUByte().toInt()))
+//
+//            }
+//
+//            val num=it[4].toUByte().toInt()
+//            val num2=it[5].toUByte().toInt()
+//            val num3=num+num2*256
+//            binding.writeCount.setText(num3.toString())
 
-            }else{
-                binding.x1.setText(String.format("%02X",it[0].toUByte().toInt()))
-                binding.x2.setText(String.format("%02X",it[1].toUByte().toInt()))
-                binding.x3.setText(String.format("%02X",it[2].toUByte().toInt()))
-                binding.x4.setText(String.format("%02X",it[3].toUByte().toInt()))
 
-            }
 
-            val num=it[4].toUByte().toInt()
-            val num2=it[5].toUByte().toInt()
-            val num3=num+num2*256
-            binding.writeCount.setText(num3.toString())
 
-            bleWorker.sendCmd(byteArrayOf(0x0.toByte()))
+
+            bleWorker.sendCmd(BleCmd.reset())
         })
 
 //        binding.x1.filters = arrayOf(InputFilterMinMax("0", "255"))
@@ -367,19 +374,24 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
     }
 
     fun writeId(view: View) {
-        try {
-            mySendByteArray=byteArrayOf(
-                    xx1.toByte(),
-                    xx2.toByte(),
-                    xx3.toByte(),
-                    xx4.toByte(),
-                    xx5.toByte(),
-                    xx6.toByte(),
-            )
-            bleWorker.sendCmd(mySendByteArray!!)
-        } catch (e: Exception) {
-          hintToast.postValue("请输入正确的参数")
-        }
+//        try {
+//            mySendByteArray=byteArrayOf(
+//                    xx1.toByte(),
+//                    xx2.toByte(),
+//                    xx3.toByte(),
+//                    xx4.toByte(),
+//                    xx5.toByte(),
+//                    xx6.toByte(),
+//            )
+//            bleWorker.sendCmd(mySendByteArray!!)
+//        } catch (e: Exception) {
+//          hintToast.postValue("请输入正确的参数")
+//        }
+
+        bleWorker.sendCmd(BleCmd.reset())
+
+
+
 
     }
 
