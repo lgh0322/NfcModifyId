@@ -35,8 +35,6 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
     val endPackage = byteArrayOf(0x0e.toByte(), 0x02.toByte(), 0x18.toByte(), 0x00.toByte())
 
 
-
-
     fun equalPkg(a: ByteArray, b: ByteArray): Boolean {
         if (a.size != b.size) {
             return false
@@ -193,24 +191,22 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
     }
 
 
-
-
-    fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?,ga : ConnectionObserver) {
+    fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?, ga: ConnectionObserver) {
         bleDataManager = BleDataManager(context, readCallBack)
         bleDataManager?.setNotifyListener(comeData)
         bleDataManager?.setConnectionObserver(ga)
         bluetoothDevice?.let {
             bleDataManager?.connect(it)
-                    ?.useAutoConnect(true)
-                    ?.timeout(20000)
-                    ?.retry(2000, 10)
-                    ?.done {
-                        Log.i("BLE", "连接成功了.>>.....>>>>")
-                        dataScope.launch {
-                            connectChannel.send("yes")
-                        }
+                ?.useAutoConnect(true)
+                ?.timeout(20000)
+                ?.retry(2000, 10)
+                ?.done {
+                    Log.i("BLE", "连接成功了.>>.....>>>>")
+                    dataScope.launch {
+                        connectChannel.send("yes")
                     }
-                    ?.enqueue()
+                }
+                ?.enqueue()
 
 
         }

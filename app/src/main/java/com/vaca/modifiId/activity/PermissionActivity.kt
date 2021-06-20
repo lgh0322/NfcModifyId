@@ -30,7 +30,7 @@ class PermissionActivity : AppCompatActivity() {
 
     private fun requestPermission() {
         val ps: Array<String> = arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION
         )
 
         if (!checkP(Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -43,9 +43,9 @@ class PermissionActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         when (requestCode) {
             permissionRequestCode -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -72,18 +72,18 @@ class PermissionActivity : AppCompatActivity() {
 
     fun initB() {
         val bluetoothManager =
-                getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+            getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         val bluetoothAdapter = bluetoothManager.adapter
         if (bluetoothAdapter == null) {
             val enableBtIntent = Intent(
-                    BluetoothAdapter.ACTION_REQUEST_ENABLE
+                BluetoothAdapter.ACTION_REQUEST_ENABLE
             )
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
             return;
         }
         if (!(bluetoothAdapter.isEnabled)) {
             val enableBtIntent = Intent(
-                    BluetoothAdapter.ACTION_REQUEST_ENABLE
+                BluetoothAdapter.ACTION_REQUEST_ENABLE
             )
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
             return;

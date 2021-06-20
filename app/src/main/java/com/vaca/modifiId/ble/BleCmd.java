@@ -1,7 +1,6 @@
 package com.vaca.modifiId.ble;
 
 
-
 import static com.vaca.modifiId.utils.CRCUtils.calCRC8;
 
 public class BleCmd {
@@ -9,7 +8,6 @@ public class BleCmd {
     public final static byte CMD_GET_POWER = (byte) 0xA2;
     public final static byte CMD_SET_LED = (byte) 0xA3;
     public final static byte CMD_GET_MACHINE_ID = (byte) 0xA4;
-
 
 
     private static int seqNo = 0;
@@ -77,10 +75,6 @@ public class BleCmd {
         addNo();
         return cmd;
     }
-
-
-
-
 
 
 }
