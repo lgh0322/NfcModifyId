@@ -44,9 +44,6 @@ class BleScanManager {
         return ret
     }
 
-    private fun isRightScanRecord(bytes: ByteArray): Boolean {
-        return "4EF301" == parseRecord(bytes)[-1]
-    }
 
 
     private var leScanCallback: ScanCallback = object : ScanCallback() {

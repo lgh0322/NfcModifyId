@@ -35,33 +35,7 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
     val endPackage = byteArrayOf(0x0e.toByte(), 0x02.toByte(), 0x18.toByte(), 0x00.toByte())
 
 
-    private val connectState = object : ConnectionObserver {
-        override fun onDeviceConnecting(device: BluetoothDevice) {
 
-        }
-
-        override fun onDeviceConnected(device: BluetoothDevice) {
-
-
-        }
-
-        override fun onDeviceFailedToConnect(device: BluetoothDevice, reason: Int) {
-
-        }
-
-        override fun onDeviceReady(device: BluetoothDevice) {
-
-        }
-
-        override fun onDeviceDisconnecting(device: BluetoothDevice) {
-
-        }
-
-        override fun onDeviceDisconnected(device: BluetoothDevice, reason: Int) {
-
-        }
-
-    }
 
     fun equalPkg(a: ByteArray, b: ByteArray): Boolean {
         if (a.size != b.size) {
@@ -221,14 +195,14 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
 
 
 
-    fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?) {
+    fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?,ga : ConnectionObserver) {
         bleDataManager = BleDataManager(context, readCallBack)
         bleDataManager?.setNotifyListener(comeData)
-        bleDataManager?.setConnectionObserver(connectState)
+        bleDataManager?.setConnectionObserver(ga)
         bluetoothDevice?.let {
             bleDataManager?.connect(it)
                     ?.useAutoConnect(true)
-                    ?.timeout(10000)
+                    ?.timeout(6000)
                     ?.retry(85, 100)
                     ?.done {
                         Log.i("BLE", "连接成功了.>>.....>>>>")
