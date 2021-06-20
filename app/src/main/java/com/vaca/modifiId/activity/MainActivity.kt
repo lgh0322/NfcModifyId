@@ -167,9 +167,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
     }
 
-//    fun writecmd(view: View) {
-//        bleWorker.sendCmd(BleCmd.getAllCard())
-//    }
+
 
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice?) {
 
