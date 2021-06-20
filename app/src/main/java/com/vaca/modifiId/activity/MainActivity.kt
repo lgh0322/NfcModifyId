@@ -16,6 +16,7 @@ import com.vaca.modifiId.ble.BleDataManager
 import com.vaca.modifiId.ble.BleDataWorker
 import com.vaca.modifiId.ble.BleScanManager
 import com.vaca.modifiId.databinding.ActivityMainBinding
+import com.vaca.modifiId.utils.CRCUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -66,13 +67,13 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
     lateinit var binding: ActivityMainBinding
 
 
-    fun mainX(byteArray: ByteArray) {
-        var fuck=""
+    fun mainX(byteArray: ByteArray):String {
+        var fuc=""
         for (b in byteArray) {
             val st = String.format("%02X", b)
-            fuck+=("$st  ");
+            fuc+=("$st  ");
         }
-        Log.e("fuckfuck",fuck)
+       return fuc
     }
 
 
@@ -80,12 +81,41 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        var ouputCard=""
 
 
         bleWorker = BleDataWorker(object : BleDataManager.OnNotifyListener {
             override fun onNotify(device: BluetoothDevice?, data: Data?) {
                 data?.value?.run {
+                    if(size>=6){
+                        if(this[0]==0xCC.toByte()){
+                            if(CRCUtils.calCRC8(this)==this[size-1]){
+                                when(this[1]){
+                                    0xA1.toByte()->{
+                                        ouputCard=ouputCard+"检测到的卡： "+mainX(this.copyOfRange(5,9))+"\n"
+                                        binding.info.text=ouputCard
+                                    }
+
+                                    0xA2.toByte()->{
+
+                                    }
+                                    0xA3.toByte()->{
+
+                                    }
+                                    0xA4.toByte()->{
+                                        var ouput="设备ID： "+mainX(this.copyOfRange(5,8))
+                                        binding.info.text=ouput
+                                    }
+
+
+                                }
+                            }
+                        }
+                    }
+
+
+
+
                     mainX(this)
                 }
             }
@@ -151,6 +181,11 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
             bleWorker.sendCmd(BleCmd.getPower())
         }
 
+
+        binding.clearOuput.setOnClickListener {
+            ouputCard=""
+            binding.info.text=""
+        }
 
     }
 
