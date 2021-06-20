@@ -130,6 +130,41 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         }.start()
 
 
+
+
+
+        //------------------------button control
+
+
+        binding.getAllCard.setOnClickListener {
+            bleWorker.sendCmd(BleCmd.getAllCard())
+        }
+
+        binding.getDeviceID.setOnClickListener {
+            bleWorker.sendCmd(BleCmd.getMachineId())
+        }
+
+        binding.closeLed.setOnClickListener {
+            bleWorker.sendCmd(BleCmd.setIndicator(0))
+        }
+
+        binding.openLed.setOnClickListener {
+            bleWorker.sendCmd(BleCmd.setIndicator(1))
+        }
+
+
+        binding.powerInfo.setOnClickListener {
+            bleWorker.sendCmd(BleCmd.getPower())
+        }
+
+
+
+
+
+
+
+
+
     }
 
 //    fun writecmd(view: View) {
