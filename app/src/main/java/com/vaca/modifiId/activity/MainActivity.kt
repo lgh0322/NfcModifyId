@@ -3,6 +3,7 @@ package com.vaca.modifiId.activity
 import android.app.Application
 import android.bluetooth.BluetoothDevice
 import android.os.Bundle
+import android.os.Vibrator
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.observer.ConnectionObserver
+
 
 class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
@@ -64,6 +66,16 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
     lateinit var binding: ActivityMainBinding
 
 
+    fun mainX(byteArray: ByteArray) {
+        var fuck=""
+        for (b in byteArray) {
+            val st = String.format("%02X", b)
+            fuck+=("$st  ");
+        }
+        Log.e("fuckfuck",fuck)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -74,8 +86,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         bleWorker = BleDataWorker(object : BleDataManager.OnNotifyListener {
             override fun onNotify(device: BluetoothDevice?, data: Data?) {
                 data?.value?.run {
-                    Log.e("fuck", String(this))
-
+                    mainX(this)
                 }
             }
 
@@ -112,26 +123,31 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
 
         //------------------------button control
-
+        val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
 
         binding.getAllCard.setOnClickListener {
+            vibrator.vibrate(100);
             bleWorker.sendCmd(BleCmd.getAllCard())
         }
 
         binding.getDeviceID.setOnClickListener {
+            vibrator.vibrate(100);
             bleWorker.sendCmd(BleCmd.getMachineId())
         }
 
         binding.closeLed.setOnClickListener {
+            vibrator.vibrate(100);
             bleWorker.sendCmd(BleCmd.setIndicator(0))
         }
 
         binding.openLed.setOnClickListener {
+            vibrator.vibrate(100);
             bleWorker.sendCmd(BleCmd.setIndicator(1))
         }
 
 
         binding.powerInfo.setOnClickListener {
+            vibrator.vibrate(100);
             bleWorker.sendCmd(BleCmd.getPower())
         }
 
