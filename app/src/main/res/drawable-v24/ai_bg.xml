@@ -10,5 +10,5 @@
     <item android:name="android:shadowColor">#33000000</item>
     <item android:name="android:shadowDx">0</item>
     <item android:name="android:shadowDy">2</item>
-    <corners android:radius="30dp" />
+    <corners android:radius="10dp" />
 </shape>

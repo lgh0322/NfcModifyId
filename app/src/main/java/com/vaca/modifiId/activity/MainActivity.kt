@@ -115,9 +115,11 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
         mainVisible.observe(this, {
             if (it) {
-                binding.bleTable.visibility = View.GONE
+                binding.mainOperate.visibility=View.VISIBLE
+                binding.bleTable2.visibility = View.GONE
             } else {
-                binding.bleTable.visibility = View.VISIBLE
+                binding.mainOperate.visibility=View.GONE
+                binding.bleTable2.visibility = View.VISIBLE
             }
 
         })

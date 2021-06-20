@@ -202,8 +202,8 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
         bluetoothDevice?.let {
             bleDataManager?.connect(it)
                     ?.useAutoConnect(true)
-                    ?.timeout(6000)
-                    ?.retry(85, 100)
+                    ?.timeout(20000)
+                    ?.retry(2000, 10)
                     ?.done {
                         Log.i("BLE", "连接成功了.>>.....>>>>")
                         dataScope.launch {
