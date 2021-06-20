@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
 
 
-            bleWorker.sendCmd(BleCmd.reset())
+            bleWorker.sendCmd(BleCmd.getAllCard())
         })
 
 //        binding.x1.filters = arrayOf(InputFilterMinMax("0", "255"))
@@ -388,7 +388,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 //          hintToast.postValue("请输入正确的参数")
 //        }
 
-        bleWorker.sendCmd(BleCmd.reset())
+        bleWorker.sendCmd(BleCmd.getAllCard())
 
 
 
