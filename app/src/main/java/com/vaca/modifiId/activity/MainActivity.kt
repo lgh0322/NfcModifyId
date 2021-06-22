@@ -91,19 +91,19 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
                         if(this[0]==0xCC.toByte()){
                             if(CRCUtils.calCRC8(this)==this[size-1]){
                                 when(this[1]){
-                                    0xA1.toByte()->{
+                                    0xB1.toByte()->{
                                         ouputCard=ouputCard+"检测到的卡： "+mainX(this.copyOfRange(5,9))+"\n"
                                         binding.info.text=ouputCard
                                     }
 
-                                    0xA2.toByte()->{
+                                    0xB2.toByte()->{
                                         var ouput="设备电量： "+this[5].toUByte().toInt().toString()+"%"
                                         binding.info.text=ouput
                                     }
                                     0xA3.toByte()->{
 
                                     }
-                                    0xA4.toByte()->{
+                                    0xB4.toByte()->{
                                         var ouput="设备ID： "+mainX(this.copyOfRange(5,8))
                                         binding.info.text=ouput
                                     }
