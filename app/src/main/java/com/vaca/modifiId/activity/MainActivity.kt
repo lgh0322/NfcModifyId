@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
                                         var ouput="设备电量： "+this[5].toUByte().toInt().toString()+"%"
                                         binding.info.text=ouput
                                     }
-                                    0xA3.toByte()->{
+                                    0xB3.toByte()->{
 
                                     }
                                     0xB4.toByte()->{
