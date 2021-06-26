@@ -87,12 +87,14 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         bleWorker = BleDataWorker(object : BleDataManager.OnNotifyListener {
             override fun onNotify(device: BluetoothDevice?, data: Data?) {
                 data?.value?.run {
+//                    binding.info.text=mainX(this)
+                    Log.e("receive",mainX(this))
                     if(size>=6){
                         if(this[0]==0xCC.toByte()){
                             if(CRCUtils.calCRC8(this)==this[size-1]){
                                 when(this[1]){
                                     0xB1.toByte()->{
-                                        ouputCard=ouputCard+"检测到的卡： "+mainX(this.copyOfRange(5,9))+"\n"
+                                        ouputCard=ouputCard+"检测到的卡： "+mainX(this.copyOfRange(5,size-1))+"\n"
                                         binding.info.text=ouputCard
                                     }
 

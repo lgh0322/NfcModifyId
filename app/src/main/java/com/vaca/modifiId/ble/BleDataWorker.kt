@@ -88,7 +88,16 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
         bleDataManager?.sendCmdOTA(bs)
     }
 
+    fun mainX(byteArray: ByteArray):String {
+        var fuc=""
+        for (b in byteArray) {
+            val st = String.format("%02X", b)
+            fuc+=("$st  ");
+        }
+        return fuc
+    }
     fun sendCmd(bs: ByteArray) {
+        Log.e("send",mainX(bs))
         bleDataManager?.sendCmd(bs)
     }
 
