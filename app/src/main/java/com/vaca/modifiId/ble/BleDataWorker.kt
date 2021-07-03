@@ -4,6 +4,7 @@ package com.vaca.modifiId.ble
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.util.Log
+import com.vaca.modifiId.activity.MainActivity.Companion.gg
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.sync.Mutex
@@ -97,6 +98,7 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
         return fuc
     }
     fun sendCmd(bs: ByteArray) {
+        gg=System.currentTimeMillis()
         Log.e("send",mainX(bs))
         bleDataManager?.sendCmd(bs)
     }

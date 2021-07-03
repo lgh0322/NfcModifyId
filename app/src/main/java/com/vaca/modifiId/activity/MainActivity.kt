@@ -25,6 +25,9 @@ import no.nordicsemi.android.ble.observer.ConnectionObserver
 
 
 class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
+    companion object{
+        var gg:Long=0
+    }
 
 
     private val bleList: MutableList<BleBean> = ArrayList()
@@ -88,7 +91,8 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
             override fun onNotify(device: BluetoothDevice?, data: Data?) {
                 data?.value?.run {
 //                    binding.info.text=mainX(this)
-                    Log.e("receive",mainX(this))
+
+                    binding.uiui.text="指令收发延时："+(System.currentTimeMillis()-gg).toString()+" ms"
                     if(size>=6){
                         if(this[0]==0xCC.toByte()){
                             if(CRCUtils.calCRC8(this)==this[size-1]){
@@ -159,8 +163,9 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
 
         binding.getAllCard.setOnClickListener {
-            vibrator.vibrate(100);
+
             bleWorker.sendCmd(BleCmd.getAllCard())
+            vibrator.vibrate(100);
         }
 
         binding.getDeviceID.setOnClickListener {
