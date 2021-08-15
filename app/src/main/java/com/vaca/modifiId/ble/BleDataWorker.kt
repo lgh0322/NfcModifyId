@@ -98,6 +98,7 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
         return fuc
     }
     fun sendCmd(bs: ByteArray) {
+
         gg=System.currentTimeMillis()
         Log.e("send",mainX(bs))
         bleDataManager?.sendCmd(bs)

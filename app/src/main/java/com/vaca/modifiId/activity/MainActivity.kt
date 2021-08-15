@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         bleWorker = BleDataWorker(object : BleDataManager.OnNotifyListener {
             override fun onNotify(device: BluetoothDevice?, data: Data?) {
                 data?.value?.run {
-//                    binding.info.text=mainX(this)
+                    binding.info3.text="接收指令： "+mainX(this)
 
                     binding.uiui.text="指令收发延时："+(System.currentTimeMillis()-gg).toString()+" ms"
                     if(size>=6){
@@ -164,29 +164,29 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
         binding.getAllCard.setOnClickListener {
 
-            bleWorker.sendCmd(BleCmd.getAllCard())
+            sendCmd(BleCmd.getAllCard())
             vibrator.vibrate(100);
         }
 
         binding.getDeviceID.setOnClickListener {
             vibrator.vibrate(100);
-            bleWorker.sendCmd(BleCmd.getMachineId())
+            sendCmd(BleCmd.getMachineId())
         }
 
         binding.closeLed.setOnClickListener {
             vibrator.vibrate(100);
-            bleWorker.sendCmd(BleCmd.setIndicator(0))
+           sendCmd(BleCmd.setIndicator(0))
         }
 
         binding.openLed.setOnClickListener {
             vibrator.vibrate(100);
-            bleWorker.sendCmd(BleCmd.setIndicator(1))
+            sendCmd(BleCmd.setIndicator(1))
         }
 
 
         binding.powerInfo.setOnClickListener {
             vibrator.vibrate(100);
-            bleWorker.sendCmd(BleCmd.getPower())
+           sendCmd(BleCmd.getPower())
         }
 
 
@@ -195,6 +195,11 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
             binding.info.text=""
         }
 
+    }
+
+    fun sendCmd(b:ByteArray){
+        binding.info2.text="发送指令： "+mainX(b)
+        bleWorker.sendCmd(b)
     }
 
 

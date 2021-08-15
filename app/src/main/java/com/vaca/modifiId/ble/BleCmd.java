@@ -55,7 +55,7 @@ public class BleCmd {
         cmd[1] = (byte) CMD_SET_LED;
         cmd[2] = (byte) ~CMD_SET_LED;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 0;
+        cmd[4] = (byte) 1;
         cmd[5] = (byte) greanLed;
         cmd[6] = calCRC8(cmd);
         addNo();
