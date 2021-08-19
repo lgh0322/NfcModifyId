@@ -171,17 +171,30 @@
         app:layout_constraintStart_toEndOf="@+id/titleWrite"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="400dp"
+        android:textSize="24sp"
+        android:textColor="#ff15b9bf"
+        android:id="@+id/state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="number,go,titleWrite,writeCount,change" />
+        app:constraint_referenced_ids="state,number,go,titleWrite,writeCount,change" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ble_table"
         android:layout_width="match_parent"
-        android:layout_height="390dp"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

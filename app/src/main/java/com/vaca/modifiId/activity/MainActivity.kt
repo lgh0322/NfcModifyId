@@ -29,6 +29,7 @@ import com.vaca.modifiId.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import no.nordicsemi.android.ble.data.Data
+import no.nordicsemi.android.ble.observer.ConnectionObserver
 
 class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
     lateinit var x1: EditText
@@ -385,7 +386,32 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice?) {
 
-        bleWorker.initWorker(application, bluetoothDevice)
+        bleWorker.initWorker(application, bluetoothDevice,object: ConnectionObserver{
+            override fun onDeviceConnecting(device: BluetoothDevice) {
+               binding.state.text="蓝牙连接中"
+            }
+
+            override fun onDeviceConnected(device: BluetoothDevice) {
+                binding.state.text="蓝牙已连接"
+            }
+
+            override fun onDeviceFailedToConnect(device: BluetoothDevice, reason: Int) {
+                binding.state.text="蓝牙连接失败"
+            }
+
+            override fun onDeviceReady(device: BluetoothDevice) {
+                binding.state.text="蓝牙已就绪"
+            }
+
+            override fun onDeviceDisconnecting(device: BluetoothDevice) {
+                binding.state.text="断开中"
+            }
+
+            override fun onDeviceDisconnected(device: BluetoothDevice, reason: Int) {
+                binding.state.text="蓝牙已断开"
+            }
+
+        })
         mainVisible.postValue(true)
     }
 

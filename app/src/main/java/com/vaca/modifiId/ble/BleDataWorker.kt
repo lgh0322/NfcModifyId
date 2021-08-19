@@ -221,10 +221,10 @@ class BleDataWorker(val comeData: BleDataManager.OnNotifyListener) {
 
 
 
-    fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?) {
+    fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?,yes:ConnectionObserver) {
         bleDataManager = BleDataManager(context, readCallBack)
         bleDataManager?.setNotifyListener(comeData)
-        bleDataManager?.setConnectionObserver(connectState)
+        bleDataManager?.setConnectionObserver(yes)
         bluetoothDevice?.let {
             bleDataManager?.connect(it)
                     ?.useAutoConnect(true)
