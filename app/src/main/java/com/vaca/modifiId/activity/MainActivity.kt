@@ -104,6 +104,11 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
                                     0xB2.toByte()->{
                                         var ouput="设备电量： "+this[5].toUByte().toInt().toString()+"%"
+                                        if(this[6].toUByte().toInt()==0){
+                                            ouput+="\n\n状态： 未充电"
+                                        }else{
+                                            ouput+="\n\n状态： 充电中"
+                                        }
                                         binding.info.text=ouput
                                     }
                                     0xB3.toByte()->{
@@ -111,6 +116,10 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
                                     }
                                     0xB4.toByte()->{
                                         var ouput="设备ID： "+mainX(this.copyOfRange(5,8))
+                                        ouput+="\n\n软件版本 "
+                                        ouput+=this[8].toUByte().toInt().toString()
+                                        ouput+="."
+                                        ouput+=this[9].toUByte().toInt().toString()
                                         binding.info.text=ouput
                                     }
 
