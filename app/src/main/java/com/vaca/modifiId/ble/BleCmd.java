@@ -8,6 +8,7 @@ public class BleCmd {
     public final static byte CMD_GET_POWER = (byte) 0xA2;
     public final static byte CMD_SET_LED = (byte) 0xA3;
     public final static byte CMD_GET_MACHINE_ID = (byte) 0xA4;
+    public final static byte CMD_TEST_MODE = (byte) 0xA5;
 
 
     private static int seqNo = 0;
@@ -26,6 +27,19 @@ public class BleCmd {
         cmd[0] = (byte) 0xCC;
         cmd[1] = (byte) CMD_GET_ALL_CARD;
         cmd[2] = (byte) ~CMD_GET_ALL_CARD;
+        cmd[3] = (byte) seqNo;
+        cmd[4] = (byte) 0;
+        cmd[5] = calCRC8(cmd);
+        addNo();
+        return cmd;
+    }
+
+    public static byte[] testMode() {
+        int len = 0;
+        byte[] cmd = new byte[6 + len];
+        cmd[0] = (byte) 0xCC;
+        cmd[1] = (byte) CMD_TEST_MODE;
+        cmd[2] = (byte) ~CMD_TEST_MODE;
         cmd[3] = (byte) seqNo;
         cmd[4] = (byte) 0;
         cmd[5] = calCRC8(cmd);

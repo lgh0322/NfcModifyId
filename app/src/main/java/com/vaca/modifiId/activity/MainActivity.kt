@@ -198,6 +198,11 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
            sendCmd(BleCmd.getPower())
         }
 
+        binding.testMode.setOnClickListener {
+            vibrator.vibrate(100);
+            sendCmd(BleCmd.testMode())
+        }
+
 
         binding.clearOuput.setOnClickListener {
             ouputCard=""
