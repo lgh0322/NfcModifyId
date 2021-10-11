@@ -17,6 +17,8 @@ import com.vaca.modifiId.ble.BleDataWorker
 import com.vaca.modifiId.ble.BleScanManager
 import com.vaca.modifiId.databinding.ActivityMainBinding
 import com.vaca.modifiId.utils.CRCUtils
+import com.vaca.modifiId.utils.StringUtil
+import com.vaca.modifiId.utils.ZHexUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -93,6 +95,16 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
                     binding.info3.text="接收指令： "+mainX(this)
                     Log.e("fuck","接收指令： "+mainX(this))
                     binding.uiui.text="指令收发延时："+(System.currentTimeMillis()-gg).toString()+" ms"
+                    val data=this!!
+                    if(this.size>10){
+                        val valueArr = byteArrayOf(data.get(10), data.get(9))
+                        val strValue: String = ZHexUtil.encodeHexStr(valueArr) //10+9 Convert to decimal
+
+                        val value = Integer.valueOf(strValue, 16)
+                        val valueStr: String = StringUtil.formatTo1(value.toDouble() / 18)
+                        Log.e("fuck2",valueStr)
+                    }
+
 
                 }
             }
