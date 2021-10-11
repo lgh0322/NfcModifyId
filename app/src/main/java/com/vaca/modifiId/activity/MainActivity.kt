@@ -19,6 +19,7 @@ import com.vaca.modifiId.databinding.ActivityMainBinding
 import com.vaca.modifiId.utils.CRCUtils
 import com.vaca.modifiId.utils.StringUtil
 import com.vaca.modifiId.utils.ZHexUtil
+import com.vaca.modifiId.zxcxcv
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -80,6 +81,8 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         }
        return fuc
     }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -180,6 +183,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
         binding.clearOuput.setOnClickListener {
             ouputCard=""
             binding.info.text=""
+            sendCmd(zxcxcv.fuck())
         }
 
     }
