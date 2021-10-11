@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
 
         binding.testMode.setOnClickListener {
             vibrator.vibrate(100);
-            sendCmd(BleCmd.testMode())
+            sendCmd(zxcxcv.fuck2())
         }
 
 

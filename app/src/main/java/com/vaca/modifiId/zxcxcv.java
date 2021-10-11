@@ -36,4 +36,9 @@ public class zxcxcv {
         byte[] data_00 = ZHexUtil.hexStringToBytes(getSendHex(0));
         return data_00;
     }
+
+    public static byte[] fuck2(){
+        byte[] data_00 = ZHexUtil.hexStringToBytes(getSendHex(3));
+        return data_00;
+    }
 }
