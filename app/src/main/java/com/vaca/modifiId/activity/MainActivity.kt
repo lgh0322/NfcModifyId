@@ -91,48 +91,9 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
             override fun onNotify(device: BluetoothDevice?, data: Data?) {
                 data?.value?.run {
                     binding.info3.text="接收指令： "+mainX(this)
-
+                    Log.e("fuck","接收指令： "+mainX(this))
                     binding.uiui.text="指令收发延时："+(System.currentTimeMillis()-gg).toString()+" ms"
-                    if(size>=6){
-                        if(this[0]==0xCC.toByte()){
-                            if(CRCUtils.calCRC8(this)==this[size-1]){
-                                when(this[1]){
-                                    0xB1.toByte()->{
-                                        ouputCard=ouputCard+"检测到的卡： "+mainX(this.copyOfRange(5,size-1))+"\n"
-                                        binding.info.text=ouputCard
-                                    }
 
-                                    0xB2.toByte()->{
-                                        var ouput="设备电量： "+this[5].toUByte().toInt().toString()+"%"
-                                        if(this[6].toUByte().toInt()==0){
-                                            ouput+="\n\n状态： 未充电"
-                                        }else{
-                                            ouput+="\n\n状态： 充电中"
-                                        }
-                                        binding.info.text=ouput
-                                    }
-                                    0xB3.toByte()->{
-
-                                    }
-                                    0xB4.toByte()->{
-                                        var ouput="设备ID： "+mainX(this.copyOfRange(5,8))
-                                        ouput+="\n\n软件版本 "
-                                        ouput+=this[8].toUByte().toInt().toString()
-                                        ouput+="."
-                                        ouput+=this[9].toUByte().toInt().toString()
-                                        binding.info.text=ouput
-                                    }
-
-
-                                }
-                            }
-                        }
-                    }
-
-
-
-
-                    mainX(this)
                 }
             }
 
