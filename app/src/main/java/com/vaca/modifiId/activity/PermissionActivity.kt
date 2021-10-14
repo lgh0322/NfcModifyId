@@ -61,17 +61,17 @@ class PermissionActivity : AppCompatActivity() {
     }
 
     fun initA() {
-        if (!isLocationEnabled()) {
+     /*   if (!isLocationEnabled()) {
             val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivityForResult(intent, REQUEST_LOCATION)
-        } else {
+        } else {*/
             initB()
-        }
+//        }
 
     }
 
     fun initB() {
-        val bluetoothManager =
+       /* val bluetoothManager =
             getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         val bluetoothAdapter = bluetoothManager.adapter
         if (bluetoothAdapter == null) {
@@ -87,7 +87,7 @@ class PermissionActivity : AppCompatActivity() {
             )
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
             return;
-        }
+        }*/
         startActivity(Intent(this, MainActivity::class.java))
         this.finish()
     }

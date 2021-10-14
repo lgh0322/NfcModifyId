@@ -53,6 +53,9 @@ class BleScanManager {
             super.onScanResult(callbackType, result)
             val device = result.device
             if (device?.name == null) return;
+            if(device!!.name.contains("BGM")==false){
+                return
+            }
             scan?.apply {
 
                 scanReturn(device.name, device)
