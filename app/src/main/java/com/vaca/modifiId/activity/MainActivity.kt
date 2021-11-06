@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
                         var same=true
                         for(k in 0 until 6){
                             System.out.println("sdf  "+this[k].toUByte().toInt().toString())
-                            if(this[k]!=mySendByteArray!![k]){
+                            if(this[k]!=mySendByteArray!![k+1]){
                                 same=false
                                 break;
                             }
@@ -370,6 +370,7 @@ class MainActivity : AppCompatActivity(), BleViewAdapter.ItemClickListener {
     fun writeId(view: View) {
         try {
             mySendByteArray=byteArrayOf(
+                0xcc.toByte(),
                     xx1.toByte(),
                     xx2.toByte(),
                     xx3.toByte(),
